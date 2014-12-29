@@ -1,0 +1,9 @@
+{
+	"name": "ananas",
+	"version": "0.0.0",
+	"main": "./lib/index.js",
+	"dependencies": {
+		"mysql": "2.5.4",
+		"redis": "0.12.1"
+	}
+}
