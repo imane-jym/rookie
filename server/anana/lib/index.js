@@ -1,10 +1,21 @@
 var server = require('./server');
 var router = require('./router');
-var requestHandlers = require('./requestHandlers');
 
+var route = {};
 
-var handle = {}
-handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
-server.start(router.route, handle);
+exports.get = function(pathname, fn)
+{
+	route.get = route.get || {};
+	route.get[pathname] = fn;
+}
+
+exports.post = function(pathname, fn)
+{
+	route.post = route.post || {};
+	route.post[pathname] = fn;
+}
+
+exports.listen = function(port)
+{
+	server.start(router.route, route, port);
+}

@@ -1,6 +1,6 @@
-var querystring = require("querystring");
+var app = require("../anana");
 
-function start(response, postData) {
+app.get("/index", function (request, response) {
 	console.log("Request handler 'start' was called.");
 
 	var body = '<html>'+
@@ -19,15 +19,13 @@ function start(response, postData) {
 	response.writeHead(200, {"Content-Type": "text/html"});
 	response.write(body);
 	response.end();
-}
+});
 
-function upload(response, postData) {
+app.post("/upload", function (request, response) {
 	console.log("Request handler 'upload' was called.");
-	response.writeHead(200, {"Content-Type": "text/plain"});
-	response.write("You've sent the text: "+
-			querystring.parse(postData).text);
+	response.writeHead(200, {"Content-Type": "application/json"});
+	response.write(JSON.stringify(request.body));
 	response.end();
-}
+});
 
-exports.start = start;
-exports.upload = upload;
+app.listen(8888);

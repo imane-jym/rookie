@@ -3,7 +3,7 @@ module.exports = {
 	{
 		"address":"127.0.0.1","port":8080
 	}
-	/* method: 使用POST方法, 请求和返回都是json格式*/
+	/* method: 使用POST方法, 请求使用application/x-www-form-urlencoded;返回都是application/json格式*/
 	"protol":[
 		/*
 		 * login 请求
