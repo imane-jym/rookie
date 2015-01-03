@@ -10,12 +10,12 @@ module.exports = {
 		 *	{ username , password}
 		 *  { errmsg, token}
 		 */
-		{"cmd":"/login", "serverfunc":"",}
+		{"cmd":"/login"}
 		/*
 		 * login 请求
 		 *	{ token}
 		 *  { errmsg, address, port}
 		 */
-		{"cmd":"/serverlist", "serverfunc":"",}
+		{"cmd":"/serverlist"}
 	]
 }

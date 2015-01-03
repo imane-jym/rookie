@@ -1,0 +1,15 @@
+{
+	"appenders": [
+	{ "type": "console" },
+	{
+		"type": "dateFile",
+		"filename": "logs/normal.log",
+		"pattern": "-yyyy-MM-dd",
+		"alwaysIncludePattern": false
+	}
+	],
+	"replaceConsole": true,
+	"levels": {
+		"[all]": "TRACE"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"redisIp":"127.0.0.1",
+	"redisPort":"6379",
+	"mysql":
+	{
+		"db0":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db1":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db2":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db3":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db4":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db5":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db6":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db7":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db8":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
+		"db9":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"}
+	}
+}
