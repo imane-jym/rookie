@@ -11,6 +11,14 @@ var commonconf = {};
 exports.init = function(conf)
 {
 	commonconf = conf;	
+
+	var redisclient = redis.createClient(commonconf.redisPort, commonconf.redisIp);
+	redisclient.on("error", function (err) {
+		console.log("Error " + err);
+	});
+	exports.redis = redisclient;
+	db.init(commonconf["mysql"]);
+	exports.getConnection = db.getConnection;
 }
 
 exports.get = function(pathname, fn)
@@ -40,14 +48,6 @@ exports.listen = function(port)
 		var t = setInterval(timer[pro], pro);
 		t.unref();
 	}
-
-	var redisclient = redis.createClient(commonconf.redisPort, commonconf.redisIp);
-	redisclient.on("error", function (err) {
-		console.log("Error " + err);
-	});
-	exports.redis = redisclient;
-	db.init(commonconf["mysql"]);
-	exports.getConnection = db.getConnection;
 }
 
 exports.logger = log;
