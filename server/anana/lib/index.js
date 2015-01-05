@@ -3,12 +3,14 @@ var router = require('./router');
 var log = require('./log.js');
 var redis = require('redis');
 var db = require('./db');
+var csv = require('./csv');
+var async = require('async');
 
 var route = {};
 var timer = {};
 var commonconf = {};
 
-exports.init = function(conf)
+exports.init = function(conf, next)
 {
 	commonconf = conf;	
 
@@ -21,6 +23,9 @@ exports.init = function(conf)
 	dbconf["supportBigNumbers"] = true;
 	db.init(dbconf);
 	exports.getConnection = db.getConnection;
+
+	csv.init(conf, next);
+	exports.csv = csv;
 }
 
 exports.get = function(pathname, fn)
@@ -53,4 +58,5 @@ exports.listen = function(port)
 }
 
 exports.logger = log;
+exports.async = async;
 

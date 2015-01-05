@@ -2,14 +2,22 @@ var app = require("../anana");
 var conf = require("./common");
 var util = require("./util");
 var enu = require("../share/enumDefine");
-app.init(conf);
+app.init(conf, dbInit);
 
-(function (i, len, next){
+function dbInit(err){
+	if (err)
+	{
+		var error = new Error("app init fail errmsg:" + err);
+		error.name = "initError";
+		throw error;
+	}
 	 var count = 0;
+	 var len = 1;
 	 for (var i = 0; i < len; i++)
 	{
 		var dbkey = "db" + i;
 		var asynnumber = len * 3;
+		var next = execMain;
 		app.getConnection(dbkey).query(
 			"CREATE TABLE IF NOT EXISTS passport_info (" +                                   
 			"passport_id    BIGINT      UNSIGNED    NOT NULL,"  +                         
@@ -58,9 +66,9 @@ app.init(conf);
 					next();
 		});
 	}
-})(0, 1, execMain);
+}
 
-function execMain()
+function execMain(err)
 {
 
 app.get("/monitor", function (request, response) {
@@ -90,16 +98,42 @@ app.post("/registerLogin", function (request, response) {
 		{
 			res = {
 				errno: 0,
-				errmsg: "",
-				LoginToken: ""
+				errmsg: app.csv['error.csv'].name,
+				loginToken: ""
 			};
 			if (err)
 			{
-				res.errno = 
-				util.senddata(data);
-				app.logger.error("db error msg", err);
+				res.errno = enu.ERRNO.DB_ERROR;
+				util.sendData(res, response, "db error msg" + err);
 				return;
 			}
+			if (!result[0])
+			{
+				res.errno = enu.ERRNO.ACCOUNT_NOT_EXIST;
+				util.sendData(res, response);
+				return;
+			}
+
+			res.loginToken = util.tokenCreate(result[0].passport_id);
+			app.redis.set(passport_id, res.loginToken, function(err, reply)
+					{
+						if (err)
+						{
+							res.errno = enu.ERRNO.SYSTEM_ERROR;
+							util.sendData(res,response);
+							return;
+						}
+						app.redis.expire(passport_id, 60, function(err, reply)
+							{
+								if (err)
+								{
+									res.errno = enu.ERRNO.SYSTEM_ERROR;
+									util.sendData(res,response);
+									return;
+								}
+								util.sendData(res, response);
+							})
+					})
 		});
 });
 
@@ -135,4 +169,6 @@ app.listen(8888);
 
 process.on('uncaughtException', function (err) {
 	  console.error(' Caught exception: ' + err.stack);
+	  if (err.name == "initError")
+			exit(0);
 });

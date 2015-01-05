@@ -16,6 +16,9 @@
 	},
 	"csv":
 	{
-		"error.csv":{}
+		base_file:"../config/",
+		file:
+		["error.csv"
+		]
 	}
 }
