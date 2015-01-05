@@ -80,7 +80,7 @@ app.get("/index", function (request, response) {
 	response.end();
 });
 
-app.post("/upload", function (request, response) {
+app.post("/registerLogin", function (request, response) {
 	console.log("Request handler 'upload' was called.");
 	response.writeHead(200, {"Content-Type": "application/json"});
 	response.write(JSON.stringify(request.body));
