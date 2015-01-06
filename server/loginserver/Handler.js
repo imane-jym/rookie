@@ -1,8 +1,10 @@
 var app = require("../anana");
 var conf = require("./common");
+var util = require("./util");
+var enu = require("../share/enumDefine");
 app.init(conf);
 
-(function (i, len, callback){
+(function (i, len, next){
 	 var count = 0;
 	 for (var i = 0; i < len; i++)
 	{
@@ -24,10 +26,12 @@ app.init(conf);
 			"reg_device     VARCHAR(32) CHARACTER SET utf8 NOT NULL," +                   
 			"reg_device_type VARCHAR(64) CHARACTER SET utf8 NOT NULL," +                  
 			"last_login_time    INT     UNSIGNED    NOT NULL," +
-			"PRIMARY KEY (passport_id)" +
+			"PRIMARY KEY (passport_id)," +
+			"INDEX (passport, platform, auth_type)," +
+			"INDEX (uid, platform, auth_type)," +
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8;", function(){
 				if (++count == asynnumber)
-					execMain();
+					next();
 		});
 		app.getConnection(dbkey).query(
 				"CREATE TABLE IF NOT EXISTS re_passport_player (" + 
@@ -39,7 +43,7 @@ app.init(conf);
 				"PRIMARY KEY (role_id)" +
 				") ENGINE=InnoDB DEFAULT CHARSET=utf8;", function(){
 				if (++count == asynnumber)
-					execMain();
+					next();
 		});
 		app.getConnection(dbkey).query(
 				"CREATE TABLE IF NOT EXISTS re_passport_player (" + 
@@ -51,7 +55,7 @@ app.init(conf);
 				"PRIMARY KEY (role_id)" +
 				") ENGINE=InnoDB DEFAULT CHARSET=utf8;", function(){
 				if (++count == asynnumber)
-					execMain();
+					next();
 		});
 	}
 })(0, 1, execMain);
@@ -59,8 +63,8 @@ app.init(conf);
 function execMain()
 {
 
-app.get("/index", function (request, response) {
-	console.log("Request handler 'start' was called.");
+app.get("/monitor", function (request, response) {
+	console.log("Request handler monitor was called.");
 
 	var body = '<html>'+
 		'<head>'+
@@ -81,10 +85,22 @@ app.get("/index", function (request, response) {
 });
 
 app.post("/registerLogin", function (request, response) {
-	console.log("Request handler 'upload' was called.");
-	response.writeHead(200, {"Content-Type": "application/json"});
-	response.write(JSON.stringify(request.body));
-	response.end();
+	var body = request.body;
+	app.getConnection('db0').query("select passport_id from passport_info where passport = ?? and platform = ?? and auth_type = ??", [body.account, body.platform_id, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_ACCOUNT], function(err, result)
+		{
+			res = {
+				errno: 0,
+				errmsg: "",
+				LoginToken: ""
+			};
+			if (err)
+			{
+				res.errno = 
+				util.senddata(data);
+				app.logger.error("db error msg", err);
+				return;
+			}
+		});
 });
 
 app.timer('5000', function(){

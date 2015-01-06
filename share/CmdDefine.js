@@ -8,27 +8,27 @@ module.exports = {
 		/** 注册账户登录 
 		 * {
 		 * [string] account 
-		 * [string] pwd_md5 
-		 * [number] platform_id 
+		 * [string] pwdMd5 
+		 * [number] platformId 
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
 		 * [string] errmsg
-		 * [string] LoginToken
+		 * [string] loginToken
 		 * }
 		 * */                       
 		"/registerLogin",
 		/** 平台登录(已通过平台账户登录) 
 		 * {[string] uid 快速登录设备号
-		 * [string] platform_token 平台登陆唯一识别串                            
-		 * [uint16] platform_id 平台类别 101 开始
+		 * [string] platformToken 平台登陆唯一识别串                            
+		 * [uint16] platformId 平台类别 101 开始
 		 * [string] 设备名 
 		 * [string] 设备型号
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
 		 * [string] errmsg
-		 * [string] LoginToken
+		 * [string] loginToken
 		 * }
 		 */
 		"/platformLogin",
@@ -40,21 +40,22 @@ module.exports = {
 		 * {
 		 * [number] errno 0:成功 其他失败
 		 * [string] errmsg
-		 * [string] LoginToken
+		 * [string] loginToken
 		 * }
 		 * */ 
 		"/fastLogin",
 		/*
 		 * 请求进入GameServer 
 		 * {
-		 * [string] client_version 
+		 * [string] loginToken
+		 * [string] clientVersion 
 		 * }
 		 * {
 		 * [number] errno 0=成功 1=服务器不存在 2=版本不符合 3=游戏帐号被禁 4=系统错误
 		 * [errmsg] errmsg
 		 * [string] ip
 		 * [number] port
-		 * [number] role_id
+		 * [number] roleId
 		 * }
 		 */                             
 		"/chooseServer",
@@ -63,9 +64,9 @@ module.exports = {
 		 * {
 		 * [string] uid 
 		 * [string] account 
-		 * [string] pwd_md5 
+		 * [string] pwdMd5 
 		 * [string] mail                        
-		 * [uint16] platform_id 
+		 * [uint16] platformId 
 		 * [string] 设备名 
 		 * [string] 设备型号                                       
 		 * } 
@@ -79,8 +80,8 @@ module.exports = {
 		/*
 		 * 修改密码（需要先登录）
 		 * {
-		 * [string] Logintoken
-		 * [string] new_pwd_md5  
+		 * [string] loginToken
+		 * [string] newPwdmd5  
 		 * }
 		 * {
 		 * [number] errno

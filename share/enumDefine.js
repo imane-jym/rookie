@@ -1,0 +1,17 @@
+module.exports = {
+	AUTH_TYPE:
+	{
+		LOGIN_AUTH_TYPE_ACCOUNT: 0, //  注册账户
+		LOGIN_AUTH_TYPE_PLATFORM: 1,  // 平台账户
+		LOGIN_AUTH_TYPE_FAST: 2, // 快速登陆账户类型
+	},
+	
+	ERRNO:
+	{
+		SUCCESS: 0,
+		SERVER_NOT_EXISTS: 1,
+		SERVER_VERISON_UNVALID: 2,
+		ACCOUNT_FORBIDDEN: 3,
+		SYSTEM_ERROR: 4	
+	}
+}

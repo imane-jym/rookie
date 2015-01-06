@@ -17,7 +17,9 @@ exports.init = function(conf)
 		console.log("Error " + err);
 	});
 	exports.redis = redisclient;
-	db.init(commonconf["mysql"]);
+	var dbconf = commonconf["mysql"];
+	dbconf["supportBigNumbers"] = true;
+	db.init(dbconf);
 	exports.getConnection = db.getConnection;
 }
 

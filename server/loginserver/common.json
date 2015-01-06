@@ -13,5 +13,9 @@
 		"db7":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
 		"db8":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
 		"db9":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"}
+	},
+	"csv":
+	{
+		"error.csv":{}
 	}
 }
