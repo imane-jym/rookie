@@ -20,4 +20,11 @@ module.exports = {
 		token += md5.digest('hex') + rand;
 		return token;
 	}
+
+	stopProcess: function (err, errmsg)
+	{
+		var error = new Error(errmsg + err);
+		error.name = "initError";
+		throw error;
+	}
 }

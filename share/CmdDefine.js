@@ -35,7 +35,7 @@ module.exports = {
 		/** 快速登录 
 		 * {
 		 * [string] uid 
-		 * [uint16] platform_id [string] 设备名 [string] 设备型号                 
+		 * [uint16] platformId [string] deviceName设备名 [string] deviceType 设备型号
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败

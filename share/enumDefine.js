@@ -14,6 +14,6 @@ module.exports = {
 		ACCOUNT_FORBIDDEN: 3,
 		SYSTEM_ERROR: 4,
 		DB_ERROR: 5,
-		ACCOUNT_NOT_EXIST: 6	
+		ACCOUNT_NOT_MATCH: 6	
 	}
 }
