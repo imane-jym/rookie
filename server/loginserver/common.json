@@ -21,4 +21,8 @@
 		["error.csv"
 		]
 	}
+	"serverList":
+	[
+		"http://www.ddd.com/s1"
+	]
 }

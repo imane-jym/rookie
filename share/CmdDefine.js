@@ -5,7 +5,7 @@ module.exports = {
 	}
 	/* method: 使用POST方法, 请求使用application/x-www-form-urlencoded;返回都是application/json格式*/
 	protol:[
-		/** 注册账户登录 
+		/** 注册账户登录 temp no use
 		 * {
 		 * [string] account 
 		 * [string] pwdMd5 
@@ -22,8 +22,8 @@ module.exports = {
 		 * {[string] uid 快速登录设备号
 		 * [string] platformToken 平台登陆唯一识别串                            
 		 * [uint16] platformId 平台类别 101 开始
-		 * [string] 设备名 
-		 * [string] 设备型号
+		 * [string] regDevice 设备名 
+		 * [string] regDeviceType 设备型号
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
@@ -35,7 +35,7 @@ module.exports = {
 		/** 快速登录 
 		 * {
 		 * [string] uid 
-		 * [uint16] platformId [string] deviceName设备名 [string] deviceType 设备型号
+		 * [uint16] platformId [string] regDevice设备名 [string] regDeviceType 设备型号
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
@@ -53,14 +53,13 @@ module.exports = {
 		 * {
 		 * [number] errno 0=成功 1=服务器不存在 2=版本不符合 3=游戏帐号被禁 4=系统错误
 		 * [errmsg] errmsg
-		 * [string] ip
-		 * [number] port
+		 * [string] url 
 		 * [number] roleId
 		 * }
 		 */                             
 		"/chooseServer",
 		
-		/* 注册账户 
+		/* 注册账户  temp no use
 		 * {
 		 * [string] uid 
 		 * [string] account 
@@ -78,7 +77,7 @@ module.exports = {
 		"/register",
 
 		/*
-		 * 修改密码（需要先登录）
+		 * 修改密码（需要先登录） temp no use
 		 * {
 		 * [string] loginToken
 		 * [string] newPwdmd5  

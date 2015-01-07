@@ -6,6 +6,8 @@ module.exports = {
 	{
 		if (errlog)
 			app.logger.error(errlog);
+		if (data.errmsg && data.errno)
+			data.errmsg = app.csv['error.csv'][errno].name;
 		response.writeHead(200, {"Content-Type": "application/json"});
 		response.write(JSON.stringify(request.body));
 		response.end();
@@ -26,5 +28,28 @@ module.exports = {
 		var error = new Error(errmsg + err);
 		error.name = "initError";
 		throw error;
+	}
+
+	getAccountId: function (account)
+	{
+		account.plus(1);
+		return account;
+	}
+
+	getRoleId: function  (role)
+	{
+		role.div(4).plus(1).mult(4);
+		return role;
+	}
+
+	getTime: function ()
+	{
+		var myDate = new Date();
+		return myDate.getTime() / 1000;
+	}
+
+	chooseServer: function (roleId, modVal)
+	{
+		return roleId / 4 % modVal;
 	}
 }
