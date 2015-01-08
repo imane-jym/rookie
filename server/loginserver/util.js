@@ -1,6 +1,7 @@
 var app = require("../anana");
 var crypto = require('crypto');
 var n = require("../../share/bignumber").n;
+var enu = require("../../share/enumDefine");
 
 module.exports = {
 	sendData: function (data, response, errlog)
@@ -72,4 +73,18 @@ module.exports = {
 	insertStr: function(str, s, idx) {
 		    return (str.slice(0,idx) + s + str.slice(idx));
 	},
+
+	verifyPara: function(res, response)
+	{
+		for (var i = 2; i < arguments.length; i++)
+		{
+			if (arguments[i] === undefined)
+			{
+				res.errno = enu.ERRNO.PARA_UNDEFINED;
+				this.sendData(res, response, "para undefined no." + (i - 2));
+				return true 
+			}
+		}
+		return false;
+	}
 }

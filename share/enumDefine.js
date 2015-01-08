@@ -16,6 +16,7 @@ module.exports = {
 		DB_ERROR: 5,
 		ACCOUNT_NOT_MATCH: 6,
 		ACCOUNT_NOT_LOGIN: 7,
-		ACCOUNT_EXIST: 8	
+		ACCOUNT_EXIST: 8,	
+		PARA_UNDEFINED: 9
 	}
 }

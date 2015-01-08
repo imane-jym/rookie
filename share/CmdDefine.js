@@ -8,7 +8,7 @@ module.exports = {
 		/** 注册账户登录 temp no use
 		 * {
 		 * [string] account 
-		 * [string] pwdMd5 
+		 * [string] pwd  md5加密
 		 * [number] platformId 
 		 * }
 		 * {
@@ -35,7 +35,7 @@ module.exports = {
 		/** 快速登录 
 		 * {
 		 * [string] uid 
-		 * [uint16] platformId [string] regDevice设备名 [string] regDeviceType 设备型号
+		 * [number] platformId [string] regDevice设备名 [string] regDeviceType 设备型号
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
@@ -52,7 +52,7 @@ module.exports = {
 		 * }
 		 * {
 		 * [number] errno 0=成功 1=服务器不存在 2=版本不符合 3=游戏帐号被禁 4=系统错误
-		 * [errmsg] errmsg
+		 * [string] errmsg
 		 * [string] url 
 		 * [number] roleId
 		 * }
@@ -63,9 +63,9 @@ module.exports = {
 		 * {
 		 * [string] uid 
 		 * [string] account 
-		 * [string] pwdMd5 
+		 * [string] pwd  md5 加密
 		 * [string] mail                        
-		 * [uint16] platformId 
+		 * [number] platformId 
 		 * [string] regDevice 设备名 
 		 * [string] regDeviceType 设备型号                                       
 		 * } 
@@ -80,7 +80,7 @@ module.exports = {
 		 * 修改密码（需要先登录） temp no use
 		 * {
 		 * [string] loginToken
-		 * [string] newPwdmd5  
+		 * [string] newPwd  md5 加密 
 		 * }
 		 * {
 		 * [number] errno

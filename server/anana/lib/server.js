@@ -2,7 +2,7 @@ var http = require("http");
 var url = require("url");
 var qs = require("querystring");
 
-function start(route, handle, port) {
+function start(route, handle, port, ip) {
 	function onRequest(request, response) {
 		var postData = "";
 		var pathname = url.parse(request.url).pathname;
@@ -34,7 +34,7 @@ function start(route, handle, port) {
 		}
 	}
 
-	http.createServer(onRequest).listen(port);
+	http.createServer(onRequest).listen(port, ip);
 	console.log("Server has started.");
 }
 

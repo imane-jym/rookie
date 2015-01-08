@@ -128,20 +128,21 @@ app.get("/monitor", function (request, response) {
 
 app.post("/registerLogin", function (request, response) {
 	var body = request.body;
+	res = {
+		errno: 0,
+		errmsg: "",
+		loginToken: ""
+	};
+	if (util.verifyPara(res, response, body.account, body.pwd, body.platformId)) return;
 	app.getConnection('db0').query("select passport_id,pwd from passport_info where passport = ? and platform = ? and auth_type = ?", [body.account, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_ACCOUNT], function(err, results)
 		{
-			res = {
-				errno: 0,
-				errmsg: "",
-				loginToken: ""
-			};
 			if (err)
 			{
 				res.errno = enu.ERRNO.DB_ERROR;
 				util.sendData(res, response, "db error msg" + err);
 				return;
 			}
-			if (results.length == 0 || results[0].pwd != body.pwdMd5)
+			if (results.length == 0 || results[0].pwd != body.pwd)
 			{
 				res.errno = enu.ERRNO.ACCOUNT_NOT_MATCH;
 				util.sendData(res, response);
@@ -178,14 +179,14 @@ function authAccount(request, response, passportId, res)
 
 app.post("/platformLogin", function (request, response) {
 	var body = request.body;
-	console.log(body);
+	res = {
+		errno: 0,
+		errmsg: "",
+		loginToken: ""
+	};
+	if (util.verifyPara(res, response, body.uid, body.platformToken, body.platformId, body.regDevice, body.regDeviceType)) return;
 	var query = app.getConnection('db0').query("select passport_id from passport_info where passport = ? and platform = ? and auth_type = ?", [body.platformToken, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_PLATFORM], function(err, results)
 		{
-			res = {
-				errno: 0,
-				errmsg: "",
-				loginToken: ""
-			};
 			if (err)
 			{
 				res.errno = enu.ERRNO.DB_ERROR;
@@ -195,7 +196,6 @@ app.post("/platformLogin", function (request, response) {
 			if (results.length == 0)
 			{
 				var passportId = util.getAccountId(maxAccount).toString();
-				console.log(passportId);
 				var query = app.getConnection('db0').query("insert into passport_info(passport_id, passport, uid,platform,auth_type,create_time,reg_device,reg_device_type) values(?, ?, ?, ?, ?, ?, ?, ?)", [passportId, body.platformToken, body.uid, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_PLATFORM, util.getTime(), body.regDevice, body.regDeviceType], function(err, result)
 					{
 						if (err)
@@ -212,13 +212,14 @@ app.post("/platformLogin", function (request, response) {
 
 app.post("/fastLogin", function (request, response) {
 	var body = request.body;
+	res = {
+		errno: 0,
+		errmsg: "",
+		loginToken: ""
+	};
+	if (util.verifyPara(res, response, body.uid, body.platformId, body.regDevice, body.regDeviceType)) return;
 	app.getConnection('db0').query("select passport_id from passport_info where uid = ? and platform = ? and auth_type = ?", [body.uid, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_FAST], function(err, results)
 		{
-			res = {
-				errno: 0,
-				errmsg: "",
-				loginToken: ""
-			};
 			if (err)
 			{
 				res.errno = enu.ERRNO.DB_ERROR;
@@ -244,14 +245,15 @@ app.post("/fastLogin", function (request, response) {
 
 app.post("/chooseServer", function (request, response) {
 	var body = request.body;
+	res = {
+		errno: 0,
+		errmsg: "",
+		url: "",
+		roleId: 0
+	};
+	if (util.verifyPara(res, response, body.loginToken, body.clientVersion)) return;
 	app.redis.get(body.loginToken, function(err, reply)
 		{
-			res = {
-				errno: 0,
-				errmsg: "",
-				url: "",
-				roleId: 0
-			};
 			if (err || !reply)
 			{
 				res.errno =  enu.ERRNO.ACCOUNT_NOT_LOGIN;
@@ -326,13 +328,14 @@ app.post("/chooseServer", function (request, response) {
 
 app.post("/register", function (request, response) {
 	var body = request.body;
+	res = {
+		errno: 0,
+		errmsg: "",
+	};
+	if (util.verifyPara(res, response, body.uid, body.account, body.pwd, body.mail, body.platformId, body.regDevice, body.regDeviceType)) return;
 	var passportId = util.getAccountId(maxAccount, false).toString();
 	app.getConnection('db0').query("select passport_id,pwd from passport_info where passport = ? and platform = ? and auth_type = ?", [body.account, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_ACCOUNT], function(err, results)
 	{
-		res = {
-			errno: 0,
-			errmsg: "",
-		};
 		if (err)
 		{
 			res.errno = enu.ERRNO.DB_ERROR;
@@ -345,7 +348,7 @@ app.post("/register", function (request, response) {
 			util.sendData(res, response);
 			return;
 		}
-		var query = app.getConnection('db0').query("insert into passport_info(passport_id, passport, pwd, mail, uid, platform,auth_type,create_time,reg_device,reg_device_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [passportId, body.account, body.pwdMd5, body.mail, body.uid, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_ACCOUNT, util.getTime(), body.regDevice, body.regDeviceType], function(err, result)
+		var query = app.getConnection('db0').query("insert into passport_info(passport_id, passport, pwd, mail, uid, platform,auth_type,create_time,reg_device,reg_device_type) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [passportId, body.account, body.pwd, body.mail, body.uid, body.platformId, enu.AUTH_TYPE.LOGIN_AUTH_TYPE_ACCOUNT, util.getTime(), body.regDevice, body.regDeviceType], function(err, result)
 			{
 				res = {errno:0,errmsg:""};
 				if (err)
@@ -365,12 +368,13 @@ app.post("/register", function (request, response) {
 
 app.post("/modifyPassword", function (request, response) {
 	var body = request.body;
+	res = {
+		errno: 0,
+		errmsg: ""
+	};
+	if (util.verifyPara(res, response, body.loginToken, body.newPwd)) return;
 	app.redis.get(body.loginToken, function(err, reply)
 		{
-			res = {
-				errno: 0,
-				errmsg: ""
-			};
 			if (err || !reply)
 			{
 				res.errno =  enu.ERRNO.ACCOUNT_NOT_LOGIN;
@@ -378,7 +382,7 @@ app.post("/modifyPassword", function (request, response) {
 				return;
 			}
 			var obj = JSON.parse(reply);
-			app.getConnection('db0').query("update passport_info set pwd = ? where passport_id = ?", [body.newPwdmd5, obj.passportId], function (err, results){
+			app.getConnection('db0').query("update passport_info set pwd = ? where passport_id = ?", [body.newPwd, obj.passportId], function (err, results){
 			if (err)
 			{
 				res.errno = enu.ERRNO.DB_ERROR;
@@ -394,7 +398,7 @@ app.post("/modifyPassword", function (request, response) {
 //});
 
 
-app.listen(8888);
+app.listen(conf.port, conf.ip);
 }
 
 process.on('uncaughtException', function (err) {
