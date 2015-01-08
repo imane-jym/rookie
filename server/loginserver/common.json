@@ -3,26 +3,17 @@
 	"redisPort":"6379",
 	"mysql":
 	{
-		"db0":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db1":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db2":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db3":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db4":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db5":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db6":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db7":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db8":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"},
-		"db9":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"}
+		"db0":{"host":"127.0.0.1","user":"root","password":"imane","database":"test","charset":"utf8"}
 	},
 	"csv":
 	{
-		base_file:"../config/",
-		file:
+		"base_file":"../../doc/config/",
+		"files":
 		["error.csv"
 		]
-	}
+	},
 	"serverList":
 	[
-		"http://www.ddd.com/s1"
+		"http://172.16.1.158:5001/"
 	]
 }

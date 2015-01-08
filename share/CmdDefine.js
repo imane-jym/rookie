@@ -22,8 +22,8 @@ module.exports = {
 		 * {[string] uid 快速登录设备号
 		 * [string] platformToken 平台登陆唯一识别串                            
 		 * [uint16] platformId 平台类别 101 开始
-		 * [string] regDevice 设备名 
-		 * [string] regDeviceType 设备型号
+		 * [string] regDevice 设备系统 ios android
+		 * [string] regDeviceType 设备型号 iphone ipad 
 		 * }
 		 * {
 		 * [number] errno 0:成功 其他失败
@@ -66,8 +66,8 @@ module.exports = {
 		 * [string] pwdMd5 
 		 * [string] mail                        
 		 * [uint16] platformId 
-		 * [string] 设备名 
-		 * [string] 设备型号                                       
+		 * [string] regDevice 设备名 
+		 * [string] regDeviceType 设备型号                                       
 		 * } 
 		 * {
 		 * [number] errno
@@ -87,5 +87,5 @@ module.exports = {
 		 * [string] errmsg
 		 * }
 		 * */                                              
-		"/modiftPassword"
+		"/modifyPassword"
 }
