@@ -9,7 +9,7 @@ module.exports = {
 		if (errlog)
 			app.logger.error(errlog);
 		if (data.errmsg != undefined && data.errno)
-			data.errmsg = app.csv['error.csv'][data.errno].name;
+			data.errmsg = app.json['error'][data.errno].name;
 		response.writeHead(200, {"Content-Type": "application/json"});
 		response.write(JSON.stringify(data));
 		response.end();

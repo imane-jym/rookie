@@ -22,5 +22,6 @@ module.exports = {
 			});
 			fs.createReadStream(conf.csv.base_file + conf.csv.files[i]).pipe(parser);
 		}	
+		next(null);
 	}
 }

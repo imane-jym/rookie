@@ -3,6 +3,7 @@ var conf = require("./common");
 var util = require("./util");
 var enu = require("../../share/enumDefine");
 var n = require("../../share/bignumber").n;
+var configJson = require("../../share/dataApi");
 app.init(conf, dbInit);
 
 var maxAccount = 0;
@@ -12,6 +13,13 @@ function dbInit(err){
 	if (err)
 	{
 		util.stopProcess(err, "app init fail errmsg:");
+	}
+	for (var i = 0; i < conf.json.files.length; i++)
+	{
+		var str = conf.json.files[i];
+		str = str.replace(/.json/gi, str);
+		app.json = {};
+		app.json[str] = new configJson(require(conf.json.base_file + str + ".json"));
 	}
 	app.async.series([
 			function(callback)

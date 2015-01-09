@@ -11,7 +11,15 @@
 	{
 		"base_file":"../../doc/config/",
 		"files":
-		["error.csv"
+		[
+		]
+	},
+	"json":
+	{
+		"base_file":"../../doc/config_json/",
+		"files":
+		[
+			"error"
 		]
 	},
 	"serverList":
